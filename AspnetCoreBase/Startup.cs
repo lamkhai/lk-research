@@ -1,3 +1,5 @@
+using AspnetCoreBase.Interceptors;
+using AspnetCoreBase.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -12,6 +14,9 @@ namespace AspnetCoreBase
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSingleton<ExceptionInterceptor>();
+
+            services.AddMvc(options => options.Filters.AddService(typeof(ExceptionInterceptor))); // Set globally for custom exceptional handling
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -23,6 +28,8 @@ namespace AspnetCoreBase
             }
 
             app.UseRouting();
+
+            app.UseRequestResponseMiddleware(); // handle http request and response
 
             app.UseEndpoints(endpoints =>
             {
