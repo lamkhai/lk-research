@@ -3,3 +3,6 @@
 ################################################################################
 
 /.vs/LKResearch/v16/.suo
+/AspnetCoreBase/obj
+/AspnetCoreBase/bin/Debug/net5.0
+/.vs/LKResearch/config
